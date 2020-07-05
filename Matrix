@@ -1,0 +1,251 @@
+/*
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
+package labproject3_king;
+import javax.swing.*;
+import java.util.*;
+/**
+*
+* Justin King
+* Big Lab number 3
+* To use and utilize a multidimensional array
+* due 11/5/2018
+*/
+public class LabProject3_King {
+ 
+    /** 
+     */
+    
+    public static int[][] matrix = new int[4][4];
+        public static int randomMatrix(int[][] args){
+        int[][] matrix0 = new int[4][4];
+        int a = 0;
+        Random r = new Random();
+        for (int row = 0; row < matrix0.length; row++) {
+            for (int column = 0; column < matrix0[row].length; column++) {
+                matrix0[row][column] = r.nextInt(50);
+                for (int d = 0; d < matrix0[row].length; d++){
+                while (matrix0[row] == matrix0[a+1]){
+                   matrix0[row][column] = r.nextInt(50); 
+                
+                a ++;
+                if (a == 3){
+                    a = 0;
+}
+                }
+                }
+                matrix[row][column] = matrix0[row][column];
+            }
+        }
+        return 0;
+    }
+     
+        public static int largestNumber(int[][] args){
+    int[][] minAndMax = new int[4][4];
+    int max = minAndMax[0][0];
+    int min = 1000;
+    for (int row = 0; row < minAndMax.length; row++) {
+            for (int column = 0; column < minAndMax[row].length; column++) {
+                minAndMax[row][column] = matrix[row][column];
+         if (minAndMax[row][column] > max){
+                    max = minAndMax[row][column];
+                }
+                if (minAndMax[row][column] < min){
+                    min = minAndMax[row][column];
+                }
+    }
+    }
+                JOptionPane.showMessageDialog(null, "The largest number in the array is " + max + "\n" +
+                        "The smallest number in the array is " + min, "Array Minimum and Maximum", JOptionPane.INFORMATION_MESSAGE);
+        return 0;    
+        }
+ 
+        
+   public static int transposeArray(int[][] args){
+ 
+       JOptionPane.showMessageDialog(null, "The transposed first row of the matrix is " + matrix[3][3] + ", " + matrix[3][2] + ", " + matrix[3][1] + ", " + matrix[3][0] + "\n" +
+                "The transposed second row of the matrix is " + matrix[2][3] + ", " + matrix[2][2] + ", " + matrix[2][1] + ", " + matrix[2][0] + "\n" +
+                "The transposed third row of the matrix is " + matrix[1][3] + ", " + matrix[1][2] + ", " + matrix[1][1] + ", " + matrix[1][0] + "\n" +
+                "The transposed fourth row of the matrix is " + matrix[0][3] + ", " + matrix[0][2] + ", " + matrix[0][1] + ", " + matrix[0][0], "Number Display", JOptionPane.QUESTION_MESSAGE,null);
+ 
+       return 0;
+   }
+   
+   public static int searchMatrix(int[][] args){
+       String searchInput1 = JOptionPane.showInputDialog(null, "What row would you like to use for the search? (0-3)", "Input Row", JOptionPane.QUESTION_MESSAGE);
+       String searchInput2 = JOptionPane.showInputDialog(null, "What column would you like to use for the search? (0-3)", "Input Column", JOptionPane.QUESTION_MESSAGE);
+       int input1 = Integer.parseInt(searchInput1);
+       int input2 = Integer.parseInt(searchInput2);
+       while (input1 > 3 || input1 < 0){
+          searchInput1 = JOptionPane.showInputDialog(null, "An invalid number has been entered " + "\n" +
+                   "Please enter the first search parameter again", "ERROR MESSAGE", JOptionPane.QUESTION_MESSAGE);
+          
+           input1 = Integer.parseInt(searchInput1);
+       }
+       while (input2 > 3 || input2 < 0){
+           searchInput2 = JOptionPane.showInputDialog(null, "An invalid nuber has been entered " + "\n" +
+                   "Please enter the second search parameter again", "Error Message", JOptionPane.QUESTION_MESSAGE);
+           input2 = Integer.parseInt(searchInput2);
+       }
+       String[] yesno = {"Yes", "No"};
+       String yesnoInput = (String) JOptionPane.showInputDialog(null, "Would you like to search transposed?", "Search Options", JOptionPane.QUESTION_MESSAGE, null,
+               yesno,
+               yesno[0]);
+       if ("Yes".equals(yesnoInput)){
+           switch (input1) {
+               case 0:
+                   input1 = 3;
+                   break;
+               case 1:
+                   input1 = 2;
+                   break;
+               case 2:
+                   input1 = 1;
+                   break;
+               case 3:
+                   input1 = 0;
+                   break;
+               default:
+                  
+           }
+           switch (input2){
+               case 0:
+                   input2 = 3;
+                   break;
+               case 1:
+                   input2 = 2;
+                   break;
+               case 2:
+                   input2 = 1;
+                   break;
+               case 3:
+                   input2 = 0;
+                   break;
+               default:
+                   
+                   break;
+           }
+           JOptionPane.showMessageDialog(null, "The transposed search number is: " + matrix[input1][input2]);
+                  }
+       
+       
+                      
+       
+       
+       if ("No".equals(yesnoInput)){
+       
+           JOptionPane.showMessageDialog(null, "The searched number is " + matrix[input1][input2], "Regular Serch Results", JOptionPane.QUESTION_MESSAGE);
+       }
+           
+       return 0;
+   }
+      
+   public static int rowSort(int[] args){
+       String sortInput = JOptionPane.showInputDialog(null, "Which row would you like to sort (0-3)", "Row Input", JOptionPane.QUESTION_MESSAGE);
+       int sort = Integer.parseInt(sortInput);
+       while (sort > 3 || sort < 0){
+           String errorInput1 = JOptionPane.showInputDialog(null, "Error, Invalid Input." + "\n" +
+                   "Please input the row you would like to sort");
+           sort = Integer.parseInt(errorInput1);
+       }
+       int[] sortedRow = new int[4];
+       sortedRow[0] = matrix[sort][0];
+       sortedRow[1] = matrix[sort][1];
+       sortedRow[2] = matrix[sort][2];
+       sortedRow[3] = matrix[sort][3];
+       for (int i = 0; i < sortedRow.length - 1; i++) {
+// Find the minimum in the list[i..list.length-1]
+int currentMin = sortedRow[i];
+int currentMinIndex = i;
+ 
+for (int j = i + 1; j < sortedRow.length; j++) {
+if (currentMin > sortedRow[j]) {
+currentMin = sortedRow[j];
+currentMinIndex = j;
+}
+}
+ 
+// Swap list[i] with list[currentMinIndex] if necessary
+if (currentMinIndex != i) {
+sortedRow[currentMinIndex] = sortedRow[i];
+sortedRow[i] = currentMin;
+}
+Arrays.toString(sortedRow);
+}
+       JOptionPane.showMessageDialog(null, "The Sorted Row Is " + Arrays.toString(sortedRow));
+       return 0;
+   }
+   
+   public static int rowSum(int[][] args){
+       int[][] arraySum = new int [4][4];
+       int total = 0;
+            for (int row = 0; row < arraySum.length; row++) {
+                for (int column = 0; column < arraySum[row].length; column++) {
+                    arraySum[row][column] = matrix[row][column];
+                    total += arraySum[row][column];
+}
+}
+            JOptionPane.showMessageDialog(null, "The total of all of the rows is: " + total, "Array Total", JOptionPane.QUESTION_MESSAGE);
+       return 0;
+   }
+        
+    public static void main(String[] args) {
+        // creates a generic matrix
+        int[][] generic = new int[4][4];
+        int[] generic1 = new int[4];
+        int c = 0;
+        //Uses an infinite loop to continuously run the menu until the exit option is chosen
+        for (int b = 0; b < 1; b--){
+        // Uses a menu to provide options to be used
+        String[] choices = {"Randomize the Matrix", "Display the Matrix", "Determine the Largest Number in the Array", "Display the Diagonals", "Transpose the Array", "Search for a Value", "Sort a Row", "Sum of All the Rows", "Exit"};
+        String input = (String) JOptionPane.showInputDialog(null, "Please Select An Option...", "Array Lab Menu", JOptionPane.QUESTION_MESSAGE, null,
+                choices,
+                choices[c]);
+        c++;
+        if ("Randomize the Matrix".equals(input)){
+            randomMatrix(generic);
+        }
+        
+        if ("Display the Matrix".equals(input)){
+            JOptionPane.showMessageDialog(null, "The first row of the matrix is " + matrix[0][0] + ", " + matrix[0][1] + ", " + matrix[0][2] + ", " + matrix[0][3] + "\n" +
+                "The second row of the matrix is " + matrix[1][0] + ", " + matrix[1][1] + ", " + matrix[1][2] + ", " + matrix[1][3] + "\n" +
+                "The third row of the matrix is " + matrix[2][0] + ", " + matrix[2][1] + ", " + matrix[2][2] + ", " + matrix[2][3] + "\n" +
+                "The fourth row of the matrix is " + matrix[3][0] + ", " + matrix[3][1] + ", " + matrix[3][2] + ", " + matrix[3][3], "Number Display", JOptionPane.QUESTION_MESSAGE,null);
+        }
+        
+        if ("Determine the Largest Number in the Array".equals(input)){
+            largestNumber(generic);
+        }
+        
+        if ("Display the Diagonals".equals(input)){
+            JOptionPane.showMessageDialog(null, "The Diagonals are " + "\n" +
+                    matrix[0][0] + "- " + "- " + matrix[0][3] + "\n" + 
+                    "- " + matrix[1][1] + " - " + matrix[1][2] + " -" + "\n" +
+                    "- " +  matrix[2][1] + " - " + matrix[2][2] + " -" + "\n" +
+                    matrix[3][0] + " - " + "- " + matrix[3][3], "Matrix Diagonals", JOptionPane.QUESTION_MESSAGE);
+        }
+        
+        if ("Transpose the Array".equals(input)){
+            transposeArray(generic);
+        }
+        
+        if ("Search for a Value".equals(input)){
+            searchMatrix(generic);
+        }
+        
+        if ("Sort a Row".equals(input)){
+            rowSort(generic1);
+        }
+        
+        if ("Sum of All the Rows".equals(input)){
+            rowSum(generic);
+        }
+        
+        if ("Exit".equals(input)){
+            JOptionPane.showMessageDialog(null, "The Program Will Now Exit");
+            System.exit(0);
+        }
+           }
+    }
